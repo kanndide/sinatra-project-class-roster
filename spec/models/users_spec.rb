@@ -11,6 +11,7 @@ describe "User" do
     physics.student_ids = student1.id
     
   end
+  
   it "can be initialized" do
     expect(@user).to be_an_instance_of(User)
   end

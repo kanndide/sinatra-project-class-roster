@@ -4,11 +4,11 @@ describe "User" do
   before do 
     @user = User.create(:name => "Larry Kann") 
 
-    # blank_space =  Song.create(:name => "Blank Space", :artist => @artist) 
+    physics =  Course.create(:name => "Physics 101", :semester => "Fall", :period => 1, :user_id => @user.id) 
 
-    # pop = Genre.create(:name => "Pop")
+    student1 = Student.create(:name => "Billy the Kid", :email => "sixgun@gmail.com")
 
-    # blank_space.genre_ids = pop.id
+    physics.student_ids = student1.id
     
   end
   it "can be initialized" do
@@ -19,24 +19,12 @@ describe "User" do
     expect(@user.name).to eq("Larry Kann")
   end
 
-  # it "has many songs" do
-  #   expect(@artist.songs.count).to eq(1)
-  # end
+  it "has many courses" do
+    expect(@user.courses.count).to eq(1)
+  end
 
-  # it "can have many genres" do
-  #   expect(@artist.genres.count).to eq(1)
-  # end
-
-  # it "can slugify its name" do
-
-  #   expect(@artist.slug).to eq("taylor-swift")
-  # end
-
-  # describe "Class methods" do
-  #   it "given the slug can find an Artist" do
-  #     slug = "taylor-swift"
-  #     expect((Artist.find_by_slug(slug)).name).to eq("Taylor Swift")
-  #   end
-  # end
+  it "can have many students" do
+    expect(@user.students.count).to eq(1)
+  end
 
 end

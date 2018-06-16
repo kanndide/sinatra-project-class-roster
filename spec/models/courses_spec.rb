@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe "Courses" do
   before do 
-    @user = User.create(:name => "Larry Kann") 
+    @teacher = Teacher.create(:name => "Larry Kann", username: "LKann", :email => "lkann@school.com", :password => "idts") 
 
-    @course =  Course.create(:name => "Physics 101", :semester => "Fall", :period => 1, :user_id => @user.id) 
+    @course =  Course.create(:name => "Physics 101", :semester => "Fall", :period => 1, :teacher_id => @teacher.id) 
 
-    student1 = Student.create(:name => "Billy the Kid", :email => "sixgun@gmail.com")
+    @student = Student.create(:name => "Billy the Kid", :email => "sixgun@gmail.com",  username: "BtheKid", :password => "idts")
 
-    @course.student_ids = student1.id
+    @course.student_ids = @student.id
     
   end
 
@@ -20,8 +20,8 @@ describe "Courses" do
     expect(@course.name).to eq("Physics 101")
   end
 
-  it "has one user" do
-    expect(@course.user).to eq(@user)
+  it "has one teacher" do
+    expect(@course.teacher).to eq(@teacher)
   end
 
   it "can have many students" do

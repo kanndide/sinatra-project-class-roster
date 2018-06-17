@@ -9,11 +9,15 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/signup' do 
-  	if logged_in?
-  		redirect '/'
-  	else
-		  erb :create_user
-	end
+  	 erb :'/public/signup'
+  end
+
+  post '/signup' do
+    if params[:teacher]
+      redirect 'teachers/create'
+    elsif params[:student]
+      redirect 'student/create'
+    end
   end
 
   post "/signup" do

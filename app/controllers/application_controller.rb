@@ -20,31 +20,25 @@ class ApplicationController < Sinatra::Base
     end
   end
 
-  post "/signup" do
-    @user = User.create(params)
-  
-    if @user.save && params[:username] != "" && params[:password] != ""
-      session[:user_id] = @user.id
-      redirect '/tweets'
-    else
-      redirect '/signup'
-    end
-  end
-
   get '/login' do
   	if logged_in?
     	redirect '/'
     else
-  		erb :'/users/login'
+  		erb :'/public/login'
   	end
   end
 
   post "/login" do
-    user = User.find_by(:username => params[:username])
+    
+    user = Teacher.find_by(:username => params[:username]) || Student.find_by(:username => params[:username])
     
     if user && user.authenticate(params[:password]) && params[:username] != "" && params[:password] != ""
         session[:user_id] = user.id
-        redirect "/tweets"
+        if user.instance_of?(Teacher)
+          redirect '/teachers/home'
+        elsif user.instance_of?(Student)
+          redirect '/students/home'
+        end
     else
         redirect "/failure"
     end

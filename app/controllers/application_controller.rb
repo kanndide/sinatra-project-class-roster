@@ -29,7 +29,7 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/login" do
-    
+
     user = Teacher.find_by(:username => params[:username]) || Student.find_by(:username => params[:username])
     
     if user && user.authenticate(params[:password]) && params[:username] != "" && params[:password] != ""
@@ -43,6 +43,10 @@ class ApplicationController < Sinatra::Base
         redirect "/failure"
     end
 
+  end
+
+  get '/failure' do
+    erb :'/public/failure'
   end
 
   get '/logout' do

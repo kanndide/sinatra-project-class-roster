@@ -41,10 +41,10 @@ class TeachersController < ApplicationController
   	end
 
   	post '/teachers/create_student' do
-  		binding.pry
-  		# @student = Student.create(params[:student])
-  		# @course = Course.find_by(params[:course])
-  		# @student.student_courses.create(course: @course)
+  		@student = Student.create(params[:student])
+  		@course = Course.find_by(params[:course])
+  		@student.student_courses.create(course: @course)
+  		@student.save
   	end
 
 end
